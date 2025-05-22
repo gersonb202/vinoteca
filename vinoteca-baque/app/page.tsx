@@ -13,7 +13,7 @@ export default function Home() {
       <section className="relative h-[70vh] flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg?height=1080&width=1920"
+            src="/vinedo.jpg?height=1080&width=1920"
             alt="Viñedos Vinoteca Baque"
             fill
             className="object-cover brightness-50"
@@ -29,7 +29,7 @@ export default function Home() {
             <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-black">
               <Link href="/catalogo">Explorar Catálogo</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+            <Button asChild variant="outline" size="lg" className="border-white text-white bg-primary hover:bg-white/10 hover:text-secondary">
               <Link href="/bodegas">Conocer Bodegas</Link>
             </Button>
           </div>
