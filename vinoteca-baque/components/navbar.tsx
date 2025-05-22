@@ -28,7 +28,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white">
+    <header className="sticky top-0 z-50 w-full border-b bg-background-light/80 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background-light/60 transition-colors">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex md:hidden">
           <Sheet>
