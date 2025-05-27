@@ -14,6 +14,8 @@ import { cookies } from 'next/headers'
 type Vino = {  
   nombre: string
   precio?: number
+  anhaje?: number
+  grado?: number
   bodega?: string
   tipo?: string
 }
@@ -21,8 +23,30 @@ type Vino = {
 export default async function CatalogoPage() {
    const cookieStore = cookies()
    const supabase = createClient(cookieStore)
+   {/**
+    const [tipo, setTipo] = useState<string[]>([])
+   const [bodega, setBodega] = useState<string[]>([])
+   const [anhaje, setAnhaje] = useState<number[]>([0, 2025])
+   const [grado, setGrado] = useState<number[]>([0, 15])
+   const [precio, setPrecio] = useState<number[]>([10, 100])
+     
+   
 
-   let { data: vinos, error } = await supabase.from("vino").select("*")
+   const handleValueChange = (newValues: number[]) => {
+    setPrecio(newValues);
+  }
+
+   const filtrarVinos = () => {
+    if(!vinos) return []
+    return vinos.filter((vino) => {
+      const tipoMatch = tipo.length === 0 || tipo.includes(vino.tipo || "")
+      const bodegaMatch = bodega.length === 0 || bodega.includes(vino.bodega || "")
+    })
+   }
+    */}
+
+   let { data: vinos, error } = await supabase.from('vino').select("*").limit(9)
+
 
   return (
     <div className="container py-8">
@@ -127,13 +151,31 @@ export default async function CatalogoPage() {
               <AccordionItem value="precio">
                 <AccordionTrigger className="text-base font-medium">Precio</AccordionTrigger>
                 <AccordionContent>
-                  <div className="space-y-6">
-                    <Slider defaultValue={[10, 100]} min={0} max={200} step={1} />
-                    <div className="flex items-center justify-between">
-                      <span>€10</span>
-                      <span>€100</span>
-                    </div>
-                  </div>
+                  <div className="p-8 max-w-md mx-auto"> {/* Añadido padding y centrado para mejor visualización */}
+        <h2 className="text-xl font-bold mb-4">Precio</h2> {/* Título añadido */}
+        
+        <div className="space-y-4"> {/* Aumentado el espacio */}
+            <Slider
+                //defaultValue={[10, 100]} // Usamos 'value' en lugar de 'defaultValue' para un componente controlado
+                value={[200]} // Pasa el estado actual al slider
+                //onValueChange={handleValueChange} // Actualiza el estado cuando el slider cambia
+                min={0}
+                max={200}
+                step={1}
+                className="w-full" // Asegura que ocupe todo el ancho disponible
+            />
+            <div className="flex items-center justify-between text-sm text-gray-600"> {/* Estilo añadido */}
+                {/* Muestra el valor mínimo actual del estado */}
+                <span>€100</span>
+                {/* Muestra el valor máximo actual del estado */}
+                <span>€200</span>
+            </div>
+             {/* Opcional: Mostrar los valores actuales de forma más prominente */}
+             <div className="text-center font-medium">
+                Precio seleccionado: €0 - €100
+             </div>
+        </div>
+    </div>
                 </AccordionContent>
               </AccordionItem>
 
@@ -202,9 +244,9 @@ export default async function CatalogoPage() {
          <div className="container mx-auto py-8 px-4 md:px-6">
           <h1 className="text-3xl font-bold mb-8">Catálogo de Vinos</h1>
           {vinos && vinos.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {vinos.map((vino: Vino, index) => (
-                <Card key={vino.nombre} className="overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow">
+                <Card key={index} className="overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow">
                   <Link href={`/vino/${vino.nombre}`}>
                   <div className="relative h-64 bg-gray-200">
                     <Image src="/placeholder.svg?height=400&width=300" alt={vino.nombre} fill className="object-cover"/>
@@ -240,8 +282,6 @@ export default async function CatalogoPage() {
             <p>No hay vinos disponibles en el catálogooo.</p>
           )}
          </div>
-
-      
 
           <div className="flex justify-center mt-10">
             <div className="flex items-center gap-2">
