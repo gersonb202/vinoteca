@@ -10,8 +10,10 @@ import { Slider } from "@/components/ui/slider"
 import { Car, Star, Wine } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from 'next/headers'
+import FiltrarProducto from "./FiltrarProducto"
 
 type Vino = {  
+  id: number
   nombre: string
   precio?: number
   anhaje?: number
@@ -23,27 +25,6 @@ type Vino = {
 export default async function CatalogoPage() {
    const cookieStore = cookies()
    const supabase = createClient(cookieStore)
-   {/**
-    const [tipo, setTipo] = useState<string[]>([])
-   const [bodega, setBodega] = useState<string[]>([])
-   const [anhaje, setAnhaje] = useState<number[]>([0, 2025])
-   const [grado, setGrado] = useState<number[]>([0, 15])
-   const [precio, setPrecio] = useState<number[]>([10, 100])
-     
-   
-
-   const handleValueChange = (newValues: number[]) => {
-    setPrecio(newValues);
-  }
-
-   const filtrarVinos = () => {
-    if(!vinos) return []
-    return vinos.filter((vino) => {
-      const tipoMatch = tipo.length === 0 || tipo.includes(vino.tipo || "")
-      const bodegaMatch = bodega.length === 0 || bodega.includes(vino.bodega || "")
-    })
-   }
-    */}
 
    let { data: vinos, error } = await supabase.from('vino').select("*").limit(9)
 
@@ -54,166 +35,11 @@ export default async function CatalogoPage() {
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filtros */}
-        <div className="w-full lg:w-64 shrink-0">
-          <div className="sticky top-24 space-y-6">
-            <div className="lg:hidden flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Filtros</h2>
-              <Button variant="outline" size="sm">
-                Limpiar filtros
-              </Button>
-            </div>
-
-            <Accordion type="single" collapsible defaultValue="tipo" className="w-full">
-              <AccordionItem value="tipo">
-                <AccordionTrigger className="text-base font-medium">Tipo de vino</AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="tinto" />
-                      <Label htmlFor="tinto">Tinto</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="blanco" />
-                      <Label htmlFor="blanco">Blanco</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="rosado" />
-                      <Label htmlFor="rosado">Rosado</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="espumoso" />
-                      <Label htmlFor="espumoso">Espumoso</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="dulce" />
-                      <Label htmlFor="dulce">Dulce</Label>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="region">
-                <AccordionTrigger className="text-base font-medium">Región</AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="rioja" />
-                      <Label htmlFor="rioja">Rioja</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="ribera" />
-                      <Label htmlFor="ribera">Ribera del Duero</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="priorat" />
-                      <Label htmlFor="priorat">Priorat</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="rias" />
-                      <Label htmlFor="rias">Rías Baixas</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="penedes" />
-                      <Label htmlFor="penedes">Penedés</Label>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="bodega">
-                <AccordionTrigger className="text-base font-medium">Bodega</AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="bodega1" />
-                      <Label htmlFor="bodega1">Bodega 1</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="bodega2" />
-                      <Label htmlFor="bodega2">Bodega 2</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="bodega3" />
-                      <Label htmlFor="bodega3">Bodega 3</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="bodega4" />
-                      <Label htmlFor="bodega4">Bodega 4</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="bodega5" />
-                      <Label htmlFor="bodega5">Bodega 5</Label>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="precio">
-                <AccordionTrigger className="text-base font-medium">Precio</AccordionTrigger>
-                <AccordionContent>
-                  <div className="p-8 max-w-md mx-auto"> {/* Añadido padding y centrado para mejor visualización */}
-        <h2 className="text-xl font-bold mb-4">Precio</h2> {/* Título añadido */}
         
-        <div className="space-y-4"> {/* Aumentado el espacio */}
-            <Slider
-                //defaultValue={[10, 100]} // Usamos 'value' en lugar de 'defaultValue' para un componente controlado
-                value={[200]} // Pasa el estado actual al slider
-                //onValueChange={handleValueChange} // Actualiza el estado cuando el slider cambia
-                min={0}
-                max={200}
-                step={1}
-                className="w-full" // Asegura que ocupe todo el ancho disponible
-            />
-            <div className="flex items-center justify-between text-sm text-gray-600"> {/* Estilo añadido */}
-                {/* Muestra el valor mínimo actual del estado */}
-                <span>€100</span>
-                {/* Muestra el valor máximo actual del estado */}
-                <span>€200</span>
-            </div>
-             {/* Opcional: Mostrar los valores actuales de forma más prominente */}
-             <div className="text-center font-medium">
-                Precio seleccionado: €0 - €100
-             </div>
-        </div>
-    </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="uva">
-                <AccordionTrigger className="text-base font-medium">Variedad de uva</AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="tempranillo" />
-                      <Label htmlFor="tempranillo">Tempranillo</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="garnacha" />
-                      <Label htmlFor="garnacha">Garnacha</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="verdejo" />
-                      <Label htmlFor="verdejo">Verdejo</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="albarino" />
-                      <Label htmlFor="albarino">Albariño</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="mencia" />
-                      <Label htmlFor="mencia">Mencía</Label>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            <div className="hidden lg:block">
-              <Button variant="outline" className="w-full">
-                Limpiar filtros
-              </Button>
-            </div>
-          </div>
+        <div className="w-full lg:w-64 shrink-0">
+          {vinos && <FiltrarProducto vinos={vinos} onFiltrar={(filtradoVinos) => {
+            console.log("Vinos filtrados:", filtradoVinos)
+          }} />}
         </div>
 
         {/* Productos */}
@@ -245,8 +71,8 @@ export default async function CatalogoPage() {
           <h1 className="text-3xl font-bold mb-8">Catálogo de Vinos</h1>
           {vinos && vinos.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-              {vinos.map((vino: Vino, index) => (
-                <Card key={index} className="overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow">
+              {vinos.map((vino: Vino) => (
+                <Card key={vino.id} className="overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow">
                   <Link href={`/vino/${vino.nombre}`}>
                   <div className="relative h-64 bg-gray-200">
                     <Image src="/placeholder.svg?height=400&width=300" alt={vino.nombre} fill className="object-cover"/>
@@ -264,14 +90,14 @@ export default async function CatalogoPage() {
                     {vino.bodega && <span>{vino.bodega}</span>}
                   </div>
                   <h3 className="font-semibold text-lg mb-1 truncate" title={vino.nombre}>
-                    {vino.nombre || `Vino Desconocido ${vino.nombre}`}
+                    {vino.nombre || `Vino Desconocido`}
                   </h3>
                   {vino.bodega && (
                     <p className="text-sm text-gray-600 mb-2">{vino.bodega}</p>
                   )}
                   <div className="flex justify-between items-center mt-4">
                     <span className="font-bold text-lg">
-                      {vino.precio ? `€${vino.precio.toFixed(2)}` : "Precio no disponible"}
+                      {vino.precio ? `€${vino.precio}` : "Precio no disponible"}
                     </span>
                   </div>
                   </Link>
