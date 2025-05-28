@@ -124,7 +124,7 @@ export function Navbar() {
                         >
                           <div className="text-sm font-medium leading-none">Ver todo el catálogo</div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Explora toda nuestra selección de vinos premium
+                            Explora toda nuestra selección de vinos
                           </p>
                         </Link>
                       </NavigationMenuLink>

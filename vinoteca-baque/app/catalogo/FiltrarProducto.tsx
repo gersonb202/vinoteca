@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { useSearchParams } from "next/navigation"
 
 type Vino = {
     id: number
@@ -22,13 +23,32 @@ interface FiltrarProps {
     onFiltrar: (filtradoVinos: Vino[]) => void
 }
 
-export default function FiltrarProducto({ vinos, onFiltrar }: FiltrarProps) {
+export default function FiltrarProducto({ vinos, onFiltrar}: FiltrarProps) {
+  // Valores iniciales para los rangos
+  const inicialPrecio = [10, 720]
+  const inicialAnhaje = [0, 2025]
+  const inicialGrado = [0, 21]
+
+  const searchParams = useSearchParams()
+
     //Parte de useState
     const [tipo, setTipo] = useState<string[]>([])
-    const [precio, setPrecio] = useState<number[]>([10, 100])
+    const [precio, setPrecio] = useState<number[]>(inicialPrecio)
     const [bodega, setBodega] = useState<string[]>([])
-    const [anhaje, setAnhaje] = useState<number[]>([0, 2025])
-    const [grado, setGrado] = useState<number[]>([0, 21])
+    const [anhaje, setAnhaje] = useState<number[]>(inicialAnhaje)
+    const [grado, setGrado] = useState<number[]>(inicialGrado)
+
+    // Efecto para aplicar el filtro inicial cuando cambia tipoInicial
+    useEffect(() => {
+      const tipoFromUrl = searchParams.get("tipo")
+      if(tipoFromUrl){
+        // El .slice(1) elimina el primer caracter de la cadena "/catalogo"
+        const capitalizarTipo = tipoFromUrl.charAt(0).toLocaleUpperCase() + tipoFromUrl.slice(1)
+        if(!tipo.includes(capitalizarTipo) && ["Tinto", "Blanco", "Rosado", "Espumoso", "Seco"]){
+          setTipo([capitalizarTipo])
+        }
+      }
+    }, [searchParams])
 
     // Handle checkBox, tratar de entender
     const handleTipoChange = (value: string) => {
@@ -77,9 +97,9 @@ export default function FiltrarProducto({ vinos, onFiltrar }: FiltrarProps) {
     const limpiarFiltros = () => {
         setTipo([])
         setBodega([])
-        setPrecio([])
-        setAnhaje([])
-        setGrado([])
+        setPrecio(inicialPrecio)
+        setAnhaje(inicialAnhaje)
+        setGrado(inicialGrado)
     }
 
     return (
@@ -89,7 +109,7 @@ export default function FiltrarProducto({ vinos, onFiltrar }: FiltrarProps) {
           <AccordionTrigger className="text-base font-medium">Tipo de vino</AccordionTrigger>
           <AccordionContent>
             <div className="space-y-2">
-              {["Tinto", "Blanco", "Rosado", "Espumoso", "Dulce"].map((tipoVino) => (
+              {["Tinto", "Blanco", "Rosado", "Espumoso", "Seco"].map((tipoVino) => (
                 <div key={tipoVino} className="flex items-center space-x-2">
                   <Checkbox 
                     id={tipoVino.toLowerCase()}
@@ -119,9 +139,7 @@ export default function FiltrarProducto({ vinos, onFiltrar }: FiltrarProps) {
                 <span>€{precio[0]}</span>
                 <span>€{precio[1]}</span>
               </div>
-              <div className="text-center font-medium mt-2">
-                Precio seleccionado: €{precio[0]} - €{precio[1]}
-              </div>
+              
             </div>
           </AccordionContent>
         </AccordionItem>
