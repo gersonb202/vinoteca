@@ -19,14 +19,17 @@ type Vino = {
     tipo?: string
     imagen?: string
 }
-
+type Bodega ={
+    nombre: string
+}
 interface CatalogoClienteProps {
     vinosIniciales: Vino[]
+    bodegas: Bodega[]
 }
 
 const vinos_por_pagina = 9
 
-export default function CatalogoCliente({ vinosIniciales }: CatalogoClienteProps){
+export default function CatalogoCliente({ vinosIniciales, bodegas }: CatalogoClienteProps){
     const [vinosFiltrados, setVinosFiltrados] = useState<Vino[]>(vinosIniciales)
 
     // Pasar el tipo inicial desde la URL al componente de filtros
