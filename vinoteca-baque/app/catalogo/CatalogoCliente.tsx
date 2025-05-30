@@ -15,22 +15,19 @@ type Vino = {
     precio?: number
     anhaje?: number
     grado?: number
-    bodega?: string
+    bodega: string
     tipo?: string
-    imagen?: string
 }
-type Bodega ={
-    nombre: string
-}
+
 interface CatalogoClienteProps {
     vinosIniciales: Vino[]
-    bodegas: Bodega[]
 }
 
 const vinos_por_pagina = 9
 
-export default function CatalogoCliente({ vinosIniciales, bodegas }: CatalogoClienteProps){
+export default function CatalogoCliente({ vinosIniciales }: CatalogoClienteProps){
     const [vinosFiltrados, setVinosFiltrados] = useState<Vino[]>(vinosIniciales)
+    // const bodegasMap = new Map(bodegas.map(bodegas => [bodegas.id, bodegas]))
 
     // Pasar el tipo inicial desde la URL al componente de filtros
 
@@ -149,7 +146,7 @@ export default function CatalogoCliente({ vinosIniciales, bodegas }: CatalogoCli
                                         <div className="relative h-64 w-full bg-gray-200">
                                             <Image 
                                                 // src={vino.imagen_url || `/placeholder.svg?height=400&width=300&text=${encodeURIComponent(vino.nombre)}`}
-                                                src={`https://placehold.co/300x400/E0E0E0/B0B0B0?text=${encodeURIComponent(vino.nombre)}`}
+                                                src={`/fvinos/${vino.id}.jpg`}
                                                 alt={vino.nombre} 
                                                 title={vino.nombre}
                                                 fill 

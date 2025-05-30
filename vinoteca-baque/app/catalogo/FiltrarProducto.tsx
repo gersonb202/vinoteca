@@ -14,7 +14,7 @@ type Vino = {
     precio?: number
     anhaje?: number
     grado?: number
-    bodega?: string
+    bodega: string
     tipo?: string
 }
 

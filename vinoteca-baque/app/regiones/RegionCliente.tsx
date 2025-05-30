@@ -20,7 +20,7 @@ export default function RegionCliente({regiones}: RegionProps){
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {(regiones || []).map((region: Region) => (
           <Card key={region.cp} className="overflow-hidden border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
-            <Link href={`/bodega/${region.cp}`} className="block">
+            <Link href={`/regiones`} className="block">
               <div className="relative h-64 w-full bg-gray-200">
                 <Image
                   src={`../fregiones/${region.cp}.jpg`}

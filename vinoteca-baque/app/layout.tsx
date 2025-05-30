@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { AuthProvider } from "@/components/auth-provider"
+import { CartProvider } from "./contexto/Carrito"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,13 +34,16 @@ export default function RootLayout({
     <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
       <body className="min-h-screen bg-background-light font-sans antialiased">
         <AuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="light">
+          <CartProvider>
+            <ThemeProvider attribute="class" defaultTheme="light">
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>
+          </CartProvider>
+          
         </AuthProvider>
       </body>
     </html>

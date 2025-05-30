@@ -15,15 +15,15 @@ export function Footer() {
               Descubre nuestra selección de vinos premium de las mejores bodegas y regiones vinícolas.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-white hover:text-secondary transition-colors">
+              <Link href="https://centronelson.org/" className="text-white hover:text-secondary transition-colors">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="text-white hover:text-secondary transition-colors">
+              <Link href="https://centronelson.org/" className="text-white hover:text-secondary transition-colors">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link href="#" className="text-white hover:text-secondary transition-colors">
+              <Link href="https://centronelson.org/" className="text-white hover:text-secondary transition-colors">
                 <Twitter className="h-5 w-5" />
                 <span className="sr-only">Twitter</span>
               </Link>
@@ -51,11 +51,6 @@ export function Footer() {
               <li>
                 <Link href="/regiones" className="text-gray-200 hover:text-secondary transition-colors">
                   Regiones
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-200 hover:text-secondary transition-colors">
-                  Blog
                 </Link>
               </li>
             </ul>
@@ -86,7 +81,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/catalogo?tipo=dulce" className="text-gray-200 hover:text-secondary transition-colors">
-                  Vinos Dulces
+                  Vinos Secos
                 </Link>
               </li>
             </ul>

@@ -21,10 +21,10 @@ export default function BodegaCliente({bodegas}: BodegaProps){
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {(bodegas || []).map((bodega: Bodega, index) => (
           <Card key={index} className="overflow-hidden border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
-            <Link href={`/bodega/${bodega.id}`} className="block">
+            <Link href={`/bodegas/`} className="block">
               <div className="relative h-64 w-full bg-gray-200">
                 <Image
-                  src={`/bodegas/${bodega.id}.jpg`}
+                  src={`/fbodegas/${bodega.id}.jpg`}
                   alt={bodega.nombre}
                   title={bodega.nombre}
                   fill

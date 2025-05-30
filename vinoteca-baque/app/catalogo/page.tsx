@@ -17,7 +17,7 @@ export default async function CatalogoPage() {
    const supabase = createClient(cookieStore)
 
    let { data: vinos, error } = await supabase.from('vino').select("*")
-   let { data: bodegas} = await supabase.from("bodega").select("nombre")
+   // let { data: bodegas} = await supabase.from("bodega").select("*")
 
    if (error){
     console.error("Error al obtener los vinos: ", error)
@@ -29,7 +29,7 @@ export default async function CatalogoPage() {
       <h1 className="text-3xl font-bold mb-8">
         Catálogo de Vinos
       </h1>
-      <CatalogoCliente vinosIniciales={vinos || []} bodegas={bodegas || []} />
+      <CatalogoCliente vinosIniciales={vinos || []} />
     </div>
   )
 }
