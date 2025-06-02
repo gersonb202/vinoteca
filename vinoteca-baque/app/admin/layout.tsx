@@ -25,6 +25,10 @@ export default function AdminLayout({
   const getActiveSection = () => {
     if (pathname.startsWith("/admin/usuarios")) return "usuarios";
     if (pathname.startsWith("/admin/productos")) return "productos";
+    if (pathname.startsWith("/admin/compras")) return "compras";
+    if (pathname.startsWith("/admin/bodegas")) return "bodegas";
+    if (pathname.startsWith("/admin/regiones")) return "regiones";
+    if (pathname.startsWith("/admin/tipos")) return "tipos";
     return "dashboard"; // Página principal /admin
   };
 
@@ -55,6 +59,38 @@ export default function AdminLayout({
                   <SidebarMenuButton isActive={activeSection === "productos"}>
                     <Package className="mr-2 h-4 w-4" />
                     <span>Vinos</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Link href="/admin/tipos" passHref legacyBehavior>
+                  <SidebarMenuButton isActive={activeSection === "tipos"}>
+                    <Package className="mr-2 h-4 w-4" />
+                    <span>Tipos</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Link href="/admin/bodegas" passHref legacyBehavior>
+                  <SidebarMenuButton isActive={activeSection === "bodegas"}>
+                    <Package className="mr-2 h-4 w-4" />
+                    <span>Bodegas</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Link href="/admin/regiones" passHref legacyBehavior>
+                  <SidebarMenuButton isActive={activeSection === "regiones"}>
+                    <Package className="mr-2 h-4 w-4" />
+                    <span>Regiones</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Link href="/admin/compras" passHref legacyBehavior>
+                  <SidebarMenuButton isActive={activeSection === "compras"}>
+                    <Package className="mr-2 h-4 w-4" />
+                    <span>Compras</span>
                   </SidebarMenuButton>
                 </Link>
               </SidebarMenuItem>

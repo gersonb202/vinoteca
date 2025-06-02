@@ -1,24 +1,24 @@
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from 'next/headers';
-
+import TiposCliente from "./TipoCliente";
 import type { Tipo } from "./types";
 
-export default async function ProductosAdminPage() {
+export default async function TiposAdminPage() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  let { data: Tipos } = await supabase
+  let { data: TiposFromDB } = await supabase
     .from('tipo')
     .select('*')
 
   // Mapea los datos al tipo Vino.
-  const tipos: Tipo[] = (Tipos || []).map(t => ({
+  const tiposData: Tipo[] = (TiposFromDB || []).map(t => ({
     nombre: t.nombre,
-    descripcion: t.descripccion
+    descripcion: t.descripcion
   }));
 
 
   return (
-    
+    <TiposCliente initialTipos={tiposData} />
   );
 }

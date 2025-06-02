@@ -152,20 +152,6 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          {searchOpen ? (
-            <div className="flex items-center">
-              <Input type="search" placeholder="Buscar vinos..." className="w-[200px] md:w-[300px]" />
-              <Button variant="ghost" size="icon" onClick={() => setSearchOpen(false)}>
-                <span className="sr-only">Cerrar búsqueda</span>
-                &times;
-              </Button>
-            </div>
-          ) : (
-            <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
-              <Search className="h-5 w-5" />
-              <span className="sr-only">Buscar</span>
-            </Button>
-          )}
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

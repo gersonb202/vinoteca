@@ -1,4 +1,4 @@
-// app/admin/productos/types.ts
+
 export type Vino = {
   id: number;
   nombre: string;

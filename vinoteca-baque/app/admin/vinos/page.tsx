@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from 'next/headers';
-import ProductoCliente from "./ProductoCliente";
+import VinosCliente from "./ProductoCliente";
 import type { Vino } from "./types";
 
 export const revalidate = 0; // O 'force-dynamic'
@@ -27,6 +27,6 @@ export default async function ProductosAdminPage() {
 
 
   return (
-    <ProductoCliente initialVinos={vinos} />
+    <VinosCliente initialVinos={vinos} />
   );
 }
