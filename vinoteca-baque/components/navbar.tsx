@@ -142,6 +142,11 @@ export function Navbar() {
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>Regiones</NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/admin" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>Admin</NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </nav>

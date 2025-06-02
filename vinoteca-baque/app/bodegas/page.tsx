@@ -2,14 +2,6 @@ import { createClient } from "@/lib/supabase/server"
 import { cookies } from 'next/headers'
 import BodegaCliente from "./BodegaCliente"
 
-export type Bodega = {
-  cp: number
-  nombre: string
-  telefono: number
-  region: string
-  pais: string
-}
-
 export default async function BodegasPage() {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
